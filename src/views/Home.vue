@@ -1,18 +1,82 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+      <div class="home container">
+      <div class="row" v-for="event in events" :key="event.id">
+        <div class="col s12 m12">
+            <h2 class="header">{{ event.title }}</h2>
+            <div class="card horizontal">
+            <div class="card-image">
+                <img :src=event.image_link style="width: 100%">
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <p>{{ event.description }}</p>
+                </div>
+                <div class="card-action" style="text-align: right">
+                    <p>Data wydarzenia: {{ event.date }}</p>
+                    <p>Zapisy do: {{ event.can_be_joined_to }}</p>
+                    <a class="waves-effect waves-light btn" href="#">Zapisz się na wydarzenie</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div v-for="event in events" :key="event.id">
+            <h2 class="header">{{ event.title }}</h2>
+        <div class="card">
+        <div class="row" style="border-bottom: 1px solid rgba(160,160,160,0.2); margin-bottom: 0">
+            <div class="col s4 card-image" style="padding: 0">
+                <img :src=event.image_link style="width: 100%">
+            </div>
+            <div class="col s8 card-content">
+                <p>{{ event.description }}</p>
+            </div>
+        </div>
+            <div class="row" style="margin-bottom: 0">
+                <div class="col s4" style="border-right: 1px solid rgba(160,160,160,0.2);">
+                    <p>Data wydarzenia: <br> {{ event.date }}</p>
+                </div>
+                <div class="col s4" style="border-right: 1px solid rgba(160,160,160,0.2);">
+                    <p>Zapisy do: <br>{{ event.can_be_joined_to }}</p>
+                </div>
+                <div class="col s4 center-align" style="margin-top: 2%">
+                    <a class="waves-effect waves-light btn" href="#">Zapisz się na wydarzenie</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import axios from 'axios'
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
+    name: 'Home',
+    components: {
+
+    },
+    data() {
+        return {
+            events: []
+        }
+    },
+    methods: {
+        getEvents() {
+            axios.get('http://127.0.0.1:8000/api/events/')
+            .then(res => {
+                res.data.forEach(event => {
+                    console.log(event)
+                    this.events.push(event)
+                })
+            })
+        }
+    },
+    created() {
+        this.getEvents()
+    }
 }
 </script>
+
+<style scoped>
+    
+
+</style>
