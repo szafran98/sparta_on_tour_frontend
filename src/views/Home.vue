@@ -1,25 +1,5 @@
 <template>
       <div class="home container">
-      <div class="row" v-for="event in events" :key="event.id">
-        <div class="col s12 m12">
-            <h2 class="header">{{ event.title }}</h2>
-            <div class="card horizontal">
-            <div class="card-image">
-                <img :src=event.image_link style="width: 100%">
-            </div>
-            <div class="card-stacked">
-                <div class="card-content">
-                    <p>{{ event.description }}</p>
-                </div>
-                <div class="card-action" style="text-align: right">
-                    <p>Data wydarzenia: {{ event.date }}</p>
-                    <p>Zapisy do: {{ event.can_be_joined_to }}</p>
-                    <a class="waves-effect waves-light btn" href="#">Zapisz się na wydarzenie</a>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
         <div v-for="event in events" :key="event.id">
             <h2 class="header">{{ event.title }}</h2>
         <div class="card">
