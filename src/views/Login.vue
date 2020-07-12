@@ -27,12 +27,14 @@
 
 <script>
 import axios from 'axios'
+import {TokenService} from '../storage/service'
 export default {
     name: 'Login',
     data() {
         return {
             email: null,
-            password: null
+            password: null,
+            //token: null
         }
     },
     methods: {
@@ -43,9 +45,14 @@ export default {
             }
             axios.post('http://127.0.0.1:8000/auth/', data)
             .then(res => {
-                console.log(res.data)
+                TokenService.setUserData(res.data)
+                this.$emit('logged')
+                this.$router.push({ name: 'Home' })
             })
         }
+    },
+    updated() {
+        
     },
 }
 </script>

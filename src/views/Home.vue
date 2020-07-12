@@ -34,6 +34,7 @@ export default {
     components: {
 
     },
+    props: ['userData'],
     data() {
         return {
             events: []
@@ -44,7 +45,6 @@ export default {
             axios.get('http://127.0.0.1:8000/api/events/')
             .then(res => {
                 res.data.forEach(event => {
-                    console.log(event)
                     this.events.push(event)
                 })
             })
